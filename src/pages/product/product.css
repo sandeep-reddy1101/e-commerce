@@ -1,0 +1,40 @@
+.product-container {
+    background-color: #EFEAE5;
+    border-radius: 24px;
+}
+
+.img-fluid {
+    max-height: 480px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.product-details {
+    padding: 48px 24px;
+    color: #3c4043;
+    text-align: start;
+}
+
+.product-title {
+    font-size: 32px;
+}
+
+.product-description, .product-price, .product-button {
+    font-size: 16px;
+}
+
+.product-price {
+    font-weight: bold;
+}
+
+.product-category {
+    font-size: 12px;
+}
+
+@media (max-width: 991px) {
+    .product-details {
+        text-align: center;
+    }
+  }
+
+

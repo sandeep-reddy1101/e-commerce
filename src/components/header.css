@@ -1,0 +1,7 @@
+ul {
+    order : 1;
+}
+
+.nav-item, .navbar-brand {
+    font-weight: bold;
+}
