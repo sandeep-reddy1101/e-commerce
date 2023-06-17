@@ -3,7 +3,7 @@ import "./blob.css";
 const Blob = () => {
     return (
         <div className="blob-container">
-      <div className='parent'><div class="magicpattern"/></div>
+      <div className='parent'><div className="magicpattern"/></div>
       </div>
     )
 }
