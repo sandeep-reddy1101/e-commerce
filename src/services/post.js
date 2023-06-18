@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+// Funtion to insert the user into the data base.
 export const insertUser = (userObj) => {
   const body = {
     firstName: userObj.firstName,

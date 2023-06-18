@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import NavbarSearch from "./Navbar-search";
-import { logout } from "../store";
-import { removeUserLoginInfoFromSession } from "../services/sessions";
+import { logout } from "../../store";
+import { removeUserLoginInfoFromSession } from "../../services/sessions";
 
 const Header = () => {
   const userData = useSelector((state) => state.user.value);

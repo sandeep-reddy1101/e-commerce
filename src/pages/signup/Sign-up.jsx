@@ -36,6 +36,7 @@ const SignUp = () => {
   });
 
   //function which is called when form is submitted.
+  //After getting the response form the backed API it will call setMessage function.
   const formSubmit = (data) => {
     insertUser(data)
       .then((res) => {
@@ -46,6 +47,8 @@ const SignUp = () => {
       });
   };
 
+  // Funtion to update the successMessage and errorMessage variables, based on if the user is inserted into database or not
+  // If the user if inserted successfully then it will navigate to login page.
   const setMessage = (user) => {
     if (user.inserted) {
       setSuccessMessage(true);
@@ -55,6 +58,7 @@ const SignUp = () => {
     }
   };
 
+  // Funtion for navigating to login page
   const navigateToLogin = () => {
     navigate("/login");
   };

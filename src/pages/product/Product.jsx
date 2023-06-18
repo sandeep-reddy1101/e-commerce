@@ -7,6 +7,8 @@ import { getSingleProduct } from "../../services/get";
 import Loading from "../../components/loading/Loading";
 
 const Product = () => {
+
+  // For getting the id (product ID) from the url param
   const { id } = useParams();
 
   //queryKey is the name of the query
@@ -16,6 +18,7 @@ const Product = () => {
     queryFn: () => getSingleProduct(id).then((res) => res),
   });
 
+  // If loading is true it will display Loading component else the below code.
   return (
     <div>
       {isLoading ? (
