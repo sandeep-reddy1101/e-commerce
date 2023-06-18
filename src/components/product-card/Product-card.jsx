@@ -25,7 +25,7 @@ const ProductCard = (_props) => {
   return (
     <div className="card shadow-sm bg-body-tertiary rounded">
       <div className="card__img">
-        <img src={product.image} alt={product.title} className="img-fluid"/>
+        <img src={product.image} alt={product.title} className="img-fluid product-card-image"/>
       </div>
       <div className="card__descr-wrapper">
         <p className="card__title">{product.title}</p>

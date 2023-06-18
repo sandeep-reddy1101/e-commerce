@@ -9,7 +9,6 @@ import Loading from "../../components/loading/Loading";
 import { useDispatch } from "react-redux";
 
 const Product = () => {
-
   // For getting the id (product ID) from the url param
   const { id } = useParams();
 
@@ -26,39 +25,67 @@ const Product = () => {
   // It will add quantity key to data object which contains product information.
   // Then it will dispatch the data object to store for adding product to cart.
   const addToCartButtonClick = () => {
-    data['quantity'] = 1;
+    data["quantity"] = 1;
     console.log(data);
     dispatch(addProductToCart(data));
-  }
+  };
 
-  // If loading is true it will display Loading component else the below code.
+  // If loading is true it will display Loading component else the product details.
+  // If there is product details in data vairable then it will display product details
   return (
     <div>
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="row mx-3">
-          <div className="col-12 col-md-10 offset-md-1">
-            <div className="product-container mt-5">
-              <div className="row align-items-center">
-                <div className="col-12 col-lg-6">
-                  <img src={data.image} alt={"product"} className="img-fluid" />
-                </div>
-                <div className="col-12 col-lg-6">
-                  <div className="product-details">
-                    <h3 className="product-title">{data.title}</h3>
-                    <p className="product-description">{data.description}</p>
-                    <p className="product-price">${data.price}</p>
-                    <p className="product-category">{data.category}</p>
-                    <button className="product-button btn btn-outline-secondary" onClick={addToCartButtonClick}>
-                      Add to Cart
-                    </button>
+        <>
+          {data ? (
+            <>
+              <div className="row mx-3">
+                <div className="col-12 col-md-10 offset-md-1">
+                  <div className="product-container mt-5">
+                    <div className="row align-items-center">
+                      <div className="col-12 col-lg-6">
+                        <img
+                          src={data.image}
+                          alt={"product"}
+                          className="img-fluid"
+                        />
+                      </div>
+                      <div className="col-12 col-lg-6">
+                        <div className="product-details">
+                          <h3 className="product-title">{data.title}</h3>
+                          <p className="product-description">
+                            {data.description}
+                          </p>
+                          <p className="product-price">${data.price}</p>
+                          <p className="product-category">{data.category}</p>
+                          <button
+                            className="product-button btn btn-outline-secondary"
+                            onClick={addToCartButtonClick}
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </>
+          ) : (
+            <>
+              <div className="row mt-5 mx-5 empty-cart">
+                <div className="col-12">
+                  <div className="p-5 ">
+                    <h3 className="text-center">
+                      Sorry!!! Product does not exist
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </>
       )}
     </div>
   );
