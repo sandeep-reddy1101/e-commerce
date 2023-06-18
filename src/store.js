@@ -13,7 +13,18 @@ const cartSlice = createSlice({
     // resolver to add the product object to the state which is an array.
     // action payload will take the product object to update the state.
     addProductToCart: (state, action) => {
-      const newState = [...state.value, action.payload];
+      const isProductExistInCart = state.value.find(item => item.id === action.payload.id);
+      let newState;
+      if(isProductExistInCart) {
+        newState = state.value.map((product) => {
+          if(product.id === action.payload.id){
+            product.quantity += 1;
+          }
+          return product;
+        });
+      }else{
+        newState = [...state.value, action.payload];
+      }
       state.value = newState;
     },
 

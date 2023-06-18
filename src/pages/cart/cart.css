@@ -18,3 +18,9 @@
   border: none;
 }
 
+.cart-product-title {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+}
+

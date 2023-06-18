@@ -5,6 +5,7 @@ import {
   removeProductFromCart,
   updateQuantityOfProductInCart,
 } from "../../store";
+import { Link } from "react-router-dom";
 
 const CartProduct = (_props) => {
   const { product } = _props;
@@ -38,7 +39,7 @@ const CartProduct = (_props) => {
       <div className="col-8">
         <div className="cart-product-details p-3">
           <div className="cart-product-info">
-            <h4>{product.title}</h4>
+            <Link to={`/product/${product.id}`} className="cart-product-title"><h4>{product.title}</h4></Link>
             <small className="text-success">In Stock</small>
             <p className="fw-bold">${product.price}</p>
             <div className="d-flex mb-1">
