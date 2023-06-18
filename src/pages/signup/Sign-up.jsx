@@ -7,12 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Blob from "../../components/blob/Blob";
 import { insertUser } from "../../services/post";
-import { useState } from "react";
+import { openSnackBar } from "../../services/service";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
-  const [successMessage, setSuccessMessage] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //sign up schema for the form using yup
   const schema = yup.object().shape({
@@ -36,26 +37,20 @@ const SignUp = () => {
   });
 
   //function which is called when form is submitted.
-  //After getting the response form the backed API it will call setMessage function.
+  //After getting the response form the backed API it will call snackbar and navigate to login.
   const formSubmit = (data) => {
     insertUser(data)
-      .then((res) => {
-        setMessage(res);
+      .then((userCreatedResponse) => {
+        if(userCreatedResponse.inserted){
+          openSnackBar("success", userCreatedResponse.message, dispatch);
+          navigateToLogin();
+        } else {
+          openSnackBar("error", userCreatedResponse.message, dispatch);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  // Funtion to update the successMessage and errorMessage variables, based on if the user is inserted into database or not
-  // If the user if inserted successfully then it will navigate to login page.
-  const setMessage = (user) => {
-    if (user.inserted) {
-      setSuccessMessage(true);
-      navigateToLogin();
-    } else {
-      setErrorMessage(user.message);
-    }
   };
 
   // Funtion for navigating to login page
@@ -121,14 +116,6 @@ const SignUp = () => {
               Login
             </Link>
           </p>
-          {successMessage && (
-            <p className="text-success text-center">
-              Account created successfully
-            </p>
-          )}
-          {errorMessage && (
-            <p className="text-danger text-center">{errorMessage}</p>
-          )}
         </form>
       </div>
       <Blob />

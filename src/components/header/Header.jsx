@@ -3,13 +3,16 @@ import "./header.css";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Badge from '@mui/material/Badge';
 
 import NavbarSearch from "./Navbar-search";
 import { logout } from "../../store";
 import { removeUserLoginInfoFromSession } from "../../services/sessions";
+import { openSnackBar } from "../../services/service";
 
 const Header = () => {
   const userData = useSelector((state) => state.user.value);
+  const userCart = useSelector((state) => state.cart.value);
   const dispatch = useDispatch();
 
   // Function to log out the user
@@ -17,6 +20,7 @@ const Header = () => {
   const logoutUser = () => {
     removeUserLoginInfoFromSession();
     dispatch(logout());
+    openSnackBar("success", "Logged out successfully", dispatch);
   };
 
   return (
@@ -75,7 +79,9 @@ const Header = () => {
                 <span>
                   <i className="bi bi-cart2"></i>
                 </span>
-                <span>Cart</span>
+                <Badge badgeContent={userCart.length} color="primary" showZero>
+                  <span>Cart</span>
+                </Badge>
               </Link>
             </li>
           </ul>

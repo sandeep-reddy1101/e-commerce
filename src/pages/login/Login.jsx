@@ -9,6 +9,7 @@ import Blob from "../../components/blob/Blob";
 import { verifyUser } from "../../services/get";
 import { login } from "../../store";
 import { setUserLoginInfoToSession } from "../../services/sessions";
+import { openSnackBar } from "../../services/service";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,17 +37,23 @@ const Login = () => {
     // After that we are calling a funciton which will navigate to home page.
     verifyUser(data.email, data.password)
       .then((loginData) => {
-        try {
-          dispatch(login(loginData));
-          setUserLoginInfoToSession(JSON.stringify(loginData));
-          navigateToHomePage();
-        } catch {
-          console.log(
-            "Some error occured while dispatching user data in login page"
-          );
+        if(loginData.login){
+          try {
+            openSnackBar("success", "Login successful", dispatch);
+            dispatch(login(loginData));
+            setUserLoginInfoToSession(JSON.stringify(loginData));
+            navigateToHomePage();
+          } catch {
+            console.log(
+              "Some error occured while dispatching user data in login page"
+            );
+          }
+        }else {
+          openSnackBar("error", loginData.message, dispatch);
         }
       })
       .catch((err) => {
+        openSnackBar("error", err.message, dispatch);
         console.log("some error occured", err);
       });
   };

@@ -26,7 +26,6 @@ const Product = () => {
   // Then it will dispatch the data object to store for adding product to cart.
   const addToCartButtonClick = () => {
     data["quantity"] = 1;
-    console.log(data);
     dispatch(addProductToCart(data));
   };
 

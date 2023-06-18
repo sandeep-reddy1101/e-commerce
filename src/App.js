@@ -17,6 +17,7 @@ import Product from "./pages/product/Product";
 import SearchProducts from "./pages/search-products/Search-products";
 import PageNotFound from "./pages/page-not-found/Page-not-found";
 import { fetchUserCartAndDispatchItToStore } from "./services/service";
+import SnackBar from "./components/snackbar/Snackbar";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Header />
+        <SnackBar/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

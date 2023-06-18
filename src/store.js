@@ -1,10 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { getUserLoginInfoFromSession } from "./services/sessions";
 
-// It will call a function to check whether the user login information is present in session storage.
-// If present it will get the information and store it.
-const getUserFromSession = getUserLoginInfoFromSession();
-
 const initialUserCartValue = { value: [] };
 const cartSlice = createSlice({
   name: "cart",
@@ -17,7 +13,7 @@ const cartSlice = createSlice({
       let newState;
       if(isProductExistInCart) {
         newState = state.value.map((product) => {
-          if(product.id === action.payload.id){
+          if(product.id === action.payload.id && product.quantity < 10){
             product.quantity += 1;
           }
           return product;
@@ -25,6 +21,7 @@ const cartSlice = createSlice({
       }else{
         newState = [...state.value, action.payload];
       }
+      console.log("updated cart >>> ", newState)
       state.value = newState;
     },
 
@@ -65,6 +62,11 @@ export const {
   updateQuantityOfProductInCart,
 } = cartSlice.actions;
 
+
+// It will call a function to check whether the user login information is present in session storage.
+// If present it will get the information and store it.
+const getUserFromSession = getUserLoginInfoFromSession();
+
 // Initial state of the user store
 // Here if the getUserFromSession has user login information then it will set user login info to initial state
 // else it will store {value : {login : false}}
@@ -90,9 +92,26 @@ const userSlice = createSlice({
 
 export const { login, logout } = userSlice.actions;
 
+
+const snackBarSlice = createSlice({
+  name : 'snackbar',
+  initialState : {value : { open : false }},
+  reducers : {
+    open : (state, action) => {
+      state.value = action.payload
+    },
+    close : (state) => {
+      state.value = { open : false }
+    }
+  }
+})
+
+export const { open, close } = snackBarSlice.actions;
+ 
 export const store = configureStore({
   reducer: {
     cart: cartSlice.reducer,
     user: userSlice.reducer,
+    snackbar: snackBarSlice.reducer
   },
 });

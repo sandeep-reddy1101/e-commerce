@@ -1,4 +1,4 @@
-import { initializeCart } from "../store";
+import { initializeCart, open } from "../store";
 import { getSingleProduct, getUserCart } from "./get";
 
 export const fetchUserCartAndDispatchItToStore = (userId, dispatch) => {
@@ -22,4 +22,14 @@ export const fetchUserCartAndDispatchItToStore = (userId, dispatch) => {
       .catch((err) => {
         console.log(err);
       });
+}
+
+// This function is called when user form is submitted and user is verified in the backend.
+export const openSnackBar = (type, message, dispatch) => {
+  const actionPayload = {
+    open : true,
+    message : message,
+    type: type
+  };
+  dispatch(open(actionPayload));
 }
