@@ -3,11 +3,17 @@ import "./signup.css";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Link, useNavigate } from "react-router-dom";
 
-import { Link } from "react-router-dom";
 import Blob from "../../components/blob/Blob";
+import { insertUser } from "../../services/post";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
   //sign up schema for the form using yup
   const schema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
@@ -31,7 +37,26 @@ const SignUp = () => {
 
   //function which is called when form is submitted.
   const formSubmit = (data) => {
-    console.log(data);
+    insertUser(data)
+      .then((res) => {
+        setMessage(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const setMessage = (user) => {
+    if (user.inserted) {
+      setSuccessMessage(true);
+      navigateToLogin();
+    } else {
+      setErrorMessage(user.message);
+    }
+  };
+
+  const navigateToLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -92,6 +117,14 @@ const SignUp = () => {
               Login
             </Link>
           </p>
+          {successMessage && (
+            <p className="text-success text-center">
+              Account created successfully
+            </p>
+          )}
+          {errorMessage && (
+            <p className="text-danger text-center">{errorMessage}</p>
+          )}
         </form>
       </div>
       <Blob />

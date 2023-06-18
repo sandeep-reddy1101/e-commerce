@@ -1,7 +1,9 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { getUserLoginInfoFromSession } from "./services/sessions";
+
+const getUserFromSession = getUserLoginInfoFromSession();
 
 const initialUserCartValue = {value : []};
-
 const cartSlice = createSlice({
     name : "cart",
     initialState : initialUserCartValue,
@@ -31,8 +33,26 @@ const cartSlice = createSlice({
 
 export const { addProductToCart, removeProductFromCart, initializeCart } = cartSlice.actions;
 
+
+const initialUserState = getUserFromSession ? { value : JSON.parse(getUserFromSession)} : {value : {login : false}};
+console.log("Initial user state in store >>> ", initialUserState)
+const userSlice = createSlice({
+    name : "user",
+    initialState : initialUserState,
+    reducers : {
+        login : (state, action) => {
+            state.value = action.payload;
+        },
+        logout : (state) => {
+            state.value = {value : {login : false}};        }
+    }
+})
+
+export const { login, logout} = userSlice.actions;
+
 export const store = configureStore({
     reducer : {
         cart : cartSlice.reducer,
+        user : userSlice.reducer,
     }
 });

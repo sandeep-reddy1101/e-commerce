@@ -2,14 +2,25 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./header.css";
 
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import NavbarSearch from "./Navbar-search";
+import { logout } from "../store";
+import { removeUserLoginInfoFromSession } from "../services/sessions";
 
 const Header = () => {
+  const userData = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
+  // Function to log out the user
+  // It will remove user login info from session storage and dispatch logout resolver.
+  const logoutUser = () => {
+    removeUserLoginInfoFromSession();
+    dispatch(logout());
+  };
+
   return (
-    <nav
-      className="navbar navbar-expand-md bg-body-tertiary shadow-sm"
-    >
+    <nav className="navbar navbar-expand-md bg-body-tertiary shadow-sm">
       <div className="container-fluid">
         <Link className="navbar-brand" to={"/"}>
           Navbar
@@ -37,13 +48,23 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
-                to={"/login"}
-              >
-                Login/Signup
-              </Link>
+              {userData.login ? (
+                <button
+                  className="nav-link active"
+                  aria-current="page"
+                  onClick={logoutUser}
+                >
+                  Log Out
+                </button>
+              ) : (
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to={"/login"}
+                >
+                  Login/Signup
+                </Link>
+              )}
             </li>
             <li className="nav-item">
               <Link

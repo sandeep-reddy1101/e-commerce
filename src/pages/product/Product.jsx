@@ -9,20 +9,16 @@ import Loading from "../../components/loading/Loading";
 const Product = () => {
   const { id } = useParams();
 
+  //queryKey is the name of the query
+  //queryFn is the callback function in which we called a fucntion from services folder
   const { data, isLoading } = useQuery({
-    //queryKey is the name of the query
     queryKey: ["getSingleProduct"],
-    //queryFn is the callback function in which we called a fucntion from services folder
     queryFn: () => getSingleProduct(id).then((res) => res),
   });
 
-  if (!isLoading) {
-    console.log(data);
-  }
-
   return (
     <div>
-      {!data ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <div className="row mx-3">

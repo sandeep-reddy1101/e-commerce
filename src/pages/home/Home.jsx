@@ -1,28 +1,25 @@
 // import HomeCarousel from "./Home-carousel";
 import "./home.css";
-import { getAllProducts } from "../../services/get";
-import { useQuery } from "@tanstack/react-query";
+// import { getAllProducts } from "../../services/get";
+// import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+
+  const userData = useSelector((state) => state.user.value);
+
   // using useQuery to fetch the function from services folder which fetches the products from backend API
   // and stores the data in data variable
-  const { data, isLoading } = useQuery({
-    //queryKey is the name of the query
-    queryKey: ["getAllProducts"],
-    //queryFn is the callback function in which we called a fucntion from services folder
-    queryFn: () => getAllProducts().then((res) => res),
-  });
-
-  //If the data is loading is finished then we have console logged the data.
-  if (!isLoading) {
-    console.log(data);
-  }
-
+  //queryKey is the name of the query
+  //queryFn is the callback function in which we called a fucntion from services folder
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["getAllProducts"],
+  //   queryFn: () => getAllProducts().then((res) => res),
+  // });
+ 
   return (
     <div className="body-conatiner">
-      {/* <div className="mt-2">
-        <HomeCarousel />
-      </div> */}
+      {userData.login && userData.data.firstName}
     </div>
   );
 };

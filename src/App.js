@@ -14,6 +14,8 @@ import Cart from "./pages/cart/Cart";
 import SignUp from "./pages/signup/Sign-up";
 import Product from "./pages/product/Product";
 import { store } from "./store";
+import SearchProducts from "./pages/search-products/Search-products";
+import PageNotFound from "./pages/page-not-found/Page-not-found";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ function App() {
             <Route path="/product/:id" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/contact_us" element={<ContactUs />} />
+            <Route path="/search/products/:productName" element={<SearchProducts />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
       </QueryClientProvider>

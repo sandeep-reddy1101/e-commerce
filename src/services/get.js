@@ -25,3 +25,13 @@ export const getUserCart = (userId) => {
     .then((res) => res.data)
     .catch((err) => console.log(err));
 };
+
+// Function for fetching user data after verifying it.
+export const verifyUser = (emailId, password) => {
+  return axios
+    .get("http://localhost:4200/get/verifyUser/" + emailId + "/" + password)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+};
