@@ -1,3 +1,4 @@
+import { initiatePayment } from "../../services/post";
 import "./cart.css";
 
 const CartCheckout = (_props) => {
@@ -13,6 +14,17 @@ const CartCheckout = (_props) => {
     }
     return total.toFixed(2);
   };
+
+  const checkoutButtonClick = () => {
+    const items = cartProducts.map((product) => {
+      const a = {productId: product.id, quantity: product.quantity}
+      return a
+    })
+    initiatePayment(items).then((paymentUrl) => {
+      console.log(paymentUrl);
+      window.location.href = paymentUrl.url;
+    })
+  }
 
   return (
     <div className="shadow p-3 mb-3 bg-body-tertiary rounded">
@@ -35,7 +47,7 @@ const CartCheckout = (_props) => {
           This order contains a gift
         </label>
       </div>
-      <button className="w-100 btn btn-warning rounded mb-3 mt-2">
+      <button className="w-100 btn btn-warning rounded mb-3 mt-2" onClick={checkoutButtonClick}>
         Proceed to checkout
       </button>
     </div>

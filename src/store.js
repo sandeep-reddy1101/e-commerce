@@ -21,7 +21,6 @@ const cartSlice = createSlice({
       }else{
         newState = [...state.value, action.payload];
       }
-      console.log("updated cart >>> ", newState)
       state.value = newState;
     },
 
@@ -97,9 +96,12 @@ const snackBarSlice = createSlice({
   name : 'snackbar',
   initialState : {value : { open : false }},
   reducers : {
+    // reducer for opening the snackbar
+    // action payload will contain open, type and message which will be used in snackbar component
     open : (state, action) => {
       state.value = action.payload
     },
+    //reducer for closing the snackbar
     close : (state) => {
       state.value = { open : false }
     }

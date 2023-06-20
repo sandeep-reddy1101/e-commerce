@@ -5,10 +5,10 @@ import ProductCard from "../../components/product-card/Product-card";
 import { getAllProducts } from "../../services/get";
 
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const Home = () => {
-  const userData = useSelector((state) => state.user.value);
+  // const userData = useSelector((state) => state.user.value);
 
   // using useQuery to fetch the function from services folder which fetches the products from backend API
   // and stores the data in data variable
@@ -25,7 +25,7 @@ const Home = () => {
         <Loading />
       ) : (
         <div className="row mt-4 mx-3">
-          {data.map((product, key) => {
+          {data?.map((product, key) => {
             return (
               <div
                 className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-3"

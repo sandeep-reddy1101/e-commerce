@@ -18,6 +18,8 @@ import SearchProducts from "./pages/search-products/Search-products";
 import PageNotFound from "./pages/page-not-found/Page-not-found";
 import { fetchUserCartAndDispatchItToStore } from "./services/service";
 import SnackBar from "./components/snackbar/Snackbar";
+import Success from "./pages/payment/Success";
+import Error from "./pages/payment/Error";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +51,8 @@ function App() {
             path="/search/products/:productName"
             element={<SearchProducts />}
           />
+          <Route path="/payment-success" element={<Success />} />
+          <Route path="/payment-error" element={<Error />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

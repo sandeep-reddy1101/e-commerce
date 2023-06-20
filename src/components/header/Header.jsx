@@ -27,7 +27,7 @@ const Header = () => {
     <nav className="navbar navbar-expand-md bg-body-tertiary shadow-sm">
       <div className="container-fluid">
         <Link className="navbar-brand" to={"/"}>
-          Navbar
+          e-shop
         </Link>
         <button
           className="navbar-toggler"
