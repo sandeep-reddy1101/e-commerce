@@ -37,3 +37,12 @@ export const verifyUser = (emailId, password) => {
       console.log(err);
     });
 };
+
+export const searchProductWithProductName = (productName) => {
+  return axios
+    .get(`${backendAPI}/products/search/` + productName)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
