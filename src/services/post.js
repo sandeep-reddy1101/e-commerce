@@ -20,17 +20,46 @@ export const insertUser = (userObj) => {
 };
 
 // Function to initiate the payment when checkout button is clicked
-export const initiatePayment = (itemsArr) => {
+export const initiatePayment = (userId, itemsArr) => {
   const body = {
+    userId: userId,
     items: JSON.stringify(itemsArr),
     successUrl: `${websiteURL}/payment-success`,
-    errorUrl: `${websiteURL}/payment-error`
+    errorUrl: `${websiteURL}/payment-error`,
   };
-  console.log(body)
+  console.log(body);
   return axios
     .post(`${backendAPI}/create-checkout-session/`, body)
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);
+    });
+};
+
+export const updateCart = (userId, productId, quantity) => {
+  const body = {
+    userId: userId,
+    productId: productId,
+    quantity: quantity,
+  };
+  return axios
+    .post(`${backendAPI}/carts`, body)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+export const changeQuantityofProductInCart = (userId, productId, quantity) => {
+  const body = {
+    userId: userId,
+    productId: productId,
+    quantity: quantity,
+  };
+  return axios
+    .post(`${backendAPI}/carts/change-quantity`, body)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err.message);
     });
 };

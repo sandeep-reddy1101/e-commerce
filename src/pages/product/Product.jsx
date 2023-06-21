@@ -6,12 +6,15 @@ import { getSingleProduct } from "../../services/get";
 import { addProductToCart } from "../../store";
 
 import Loading from "../../components/loading/Loading";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../../services/post";
+import { openSnackBar } from "../../services/service";
 
 const Product = () => {
   // For getting the id (product ID) from the url param
   const { id } = useParams();
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.value)
 
   //queryKey is the name of the query
   //queryFn is the callback function in which we called a fucntion from services folder
@@ -24,8 +27,24 @@ const Product = () => {
   // It will add quantity key to data object which contains product information.
   // Then it will dispatch the data object to store for adding product to cart.
   const addToCartButtonClick = () => {
-    const actionPayload = {...data, quantity: 1}
-    dispatch(addProductToCart(actionPayload));
+    if(userData.login){
+      const actionPayload = {...data, quantity: 1}
+      try {
+        updateCart(userData.data._id, actionPayload._id, actionPayload.quantity).then((response) => {
+          if(response.cartUpdated){
+            dispatch(addProductToCart(actionPayload));
+          }else {
+            throw Error("Some error occured in the backend API")
+          }
+        }).catch(err=>{
+          console.log(err.message)
+        })
+      }catch (err) {
+        console.log(err.message)
+      }
+    }else{
+      openSnackBar("info", "User login required", dispatch)
+    }
   };
 
   // If loading is true it will display Loading component else the product details.

@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import "./product-card.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../../store";
+import { updateCart } from "../../services/post";
+import { openSnackBar } from "../../services/service";
 
 const ProductCard = (_props) => {
   const { product } = _props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.value);
 
   // This function is called when learn more button is clicked.
   // It will navigate to product description page using product Id as params
@@ -18,11 +21,28 @@ const ProductCard = (_props) => {
   // First we are adding quantity key to product object.
   // It will dispatch the addProductToCart resolver in store to add the product to cart store.
   const addToCartButtonClick = () => {
-    const actionPayload = {
-      ...product,
-      quantity: 1,
-    };
-    dispatch(addProductToCart(actionPayload));
+    if(userData.login){
+      const actionPayload = {
+        ...product,
+        quantity: 1,
+      };
+      try {
+        // dispatch(addProductToCart(actionPayload));
+        updateCart(userData.data._id, actionPayload._id, actionPayload.quantity).then((response)=>{
+          if(response.cartUpdated){
+            dispatch(addProductToCart(actionPayload));
+          }else{
+            throw Error("Some error occured in the backend API");
+          }
+        }).catch((err) => {
+          console.log(err.message)
+        })
+      } catch (err) {
+        console.log(err.message);
+      }
+    }else{
+      openSnackBar("info", "User login required", dispatch)
+    }
   };
 
   return (

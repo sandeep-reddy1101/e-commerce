@@ -3,7 +3,7 @@ import "./header.css";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Badge from '@mui/material/Badge';
+import Badge from "@mui/material/Badge";
 
 import NavbarSearch from "./Navbar-search";
 import { logout } from "../../store";
@@ -79,9 +79,17 @@ const Header = () => {
                 <span>
                   <i className="bi bi-cart2"></i>
                 </span>
-                <Badge badgeContent={userCart.length} color="primary" showZero>
+                {userData.login ? (
+                  <Badge
+                    badgeContent={userCart.length}
+                    color="primary"
+                    showZero
+                  >
+                    <span>Cart</span>
+                  </Badge>
+                ) : (
                   <span>Cart</span>
-                </Badge>
+                )}
               </Link>
             </li>
           </ul>

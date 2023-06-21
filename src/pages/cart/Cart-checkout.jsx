@@ -1,8 +1,10 @@
+import { useSelector } from "react-redux";
 import { initiatePayment } from "../../services/post";
 import "./cart.css";
 
 const CartCheckout = (_props) => {
   const { cartProducts } = _props;
+  const userData = useSelector((state) => state.user.value)
 
   // Funtion for calculating the total price of products in the cart.
   const calculateTotalPrice = () => {
@@ -20,7 +22,7 @@ const CartCheckout = (_props) => {
       const checkoutObjs = {productId: product._id, quantity: product.quantity}
       return checkoutObjs
     })
-    initiatePayment(items).then((paymentUrl) => {
+    initiatePayment(userData.data._id, items).then((paymentUrl) => {
       if(paymentUrl.url){
         window.location.href = paymentUrl.url;
       }else{
