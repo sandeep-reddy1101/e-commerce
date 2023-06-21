@@ -11,22 +11,21 @@ import { useDispatch } from "react-redux";
 const Product = () => {
   // For getting the id (product ID) from the url param
   const { id } = useParams();
-
   const dispatch = useDispatch();
 
   //queryKey is the name of the query
   //queryFn is the callback function in which we called a fucntion from services folder
   const { data, isLoading } = useQuery({
     queryKey: ["getSingleProduct"],
-    queryFn: () => getSingleProduct(id).then((res) => res),
+    queryFn: () => getSingleProduct(id).then((res) => res.data[0]),
   });
 
   // This function is called when add to cart button is clicked.
   // It will add quantity key to data object which contains product information.
   // Then it will dispatch the data object to store for adding product to cart.
   const addToCartButtonClick = () => {
-    data["quantity"] = 1;
-    dispatch(addProductToCart(data));
+    const actionPayload = {...data, quantity: 1}
+    dispatch(addProductToCart(actionPayload));
   };
 
   // If loading is true it will display Loading component else the product details.

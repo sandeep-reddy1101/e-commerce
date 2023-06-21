@@ -17,12 +17,15 @@ const CartCheckout = (_props) => {
 
   const checkoutButtonClick = () => {
     const items = cartProducts.map((product) => {
-      const a = {productId: product.id, quantity: product.quantity}
-      return a
+      const checkoutObjs = {productId: product._id, quantity: product.quantity}
+      return checkoutObjs
     })
     initiatePayment(items).then((paymentUrl) => {
-      console.log(paymentUrl);
-      window.location.href = paymentUrl.url;
+      if(paymentUrl.url){
+        window.location.href = paymentUrl.url;
+      }else{
+        console.log("Some error occured during checkout")
+      }
     })
   }
 

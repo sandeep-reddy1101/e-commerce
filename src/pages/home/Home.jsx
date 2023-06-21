@@ -16,7 +16,7 @@ const Home = () => {
   //queryFn is the callback function in which we called a fucntion from services folder
   const { data, isLoading } = useQuery({
     queryKey: ["getAllProducts"],
-    queryFn: () => getAllProducts().then((res) => res),
+    queryFn: () => getAllProducts().then((res) => res.data),
   });
 
   return (

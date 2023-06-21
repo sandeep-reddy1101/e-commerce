@@ -15,7 +15,7 @@ const CartProduct = (_props) => {
   // It will call removeProductFromCart resolver in the store 
   // to remove the product from the cart based on product Id which we will send through action payload
   const deleteProductFromCart = () => {
-    const actionPayload = { productId: product.id };
+    const actionPayload = { productId: product._id };
     dispatch(removeProductFromCart(actionPayload));
   };
 

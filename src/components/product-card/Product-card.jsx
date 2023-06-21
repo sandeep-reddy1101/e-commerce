@@ -11,7 +11,7 @@ const ProductCard = (_props) => {
   // This function is called when learn more button is clicked.
   // It will navigate to product description page using product Id as params
   const navigateToProductDetails = () => {
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${product._id}`);
   };
 
   // This function is called when add to cart button is clicked.

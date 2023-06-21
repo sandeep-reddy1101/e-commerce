@@ -30,18 +30,20 @@ const Login = () => {
   });
 
   //function is called when login form is submitted.
+  // Calling verifyUser function to verify user with backend API, which returns user data
+  // After getting user data from backend, we are dispatchind user data to store by calling login resolver
+  // After that we are setting user data into session storage
+  // After that we are calling a funciton which will navigate to home page.
   const formSubmit = (data) => {
-    // Calling verifyUser function to verify user with backend API, which returns user data
-    // After getting user data from backend, we are dispatchind user data to store by calling login resolver
-    // After that we are setting user data into session storage
-    // After that we are calling a funciton which will navigate to home page.
     verifyUser(data.email, data.password)
       .then((loginData) => {
+        // Here in loginData object, it has login key, where its value is true or flase based on user verified
         if(loginData.login){
           try {
             openSnackBar("success", "Login successful", dispatch);
-            dispatch(login(loginData));
-            setUserLoginInfoToSession(JSON.stringify(loginData));
+            // loginData object has data key which contain user information
+            dispatch(login({data: loginData.data, login: true}));
+            setUserLoginInfoToSession(JSON.stringify({data: loginData.data, login: true}));
             navigateToHomePage();
           } catch {
             console.log(

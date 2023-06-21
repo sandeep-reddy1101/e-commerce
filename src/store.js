@@ -9,11 +9,11 @@ const cartSlice = createSlice({
     // resolver to add the product object to the state which is an array.
     // action payload will take the product object to update the state.
     addProductToCart: (state, action) => {
-      const isProductExistInCart = state.value.find(item => item.id === action.payload.id);
+      const isProductExistInCart = state.value.find(item => item._id === action.payload._id);
       let newState;
       if(isProductExistInCart) {
         newState = state.value.map((product) => {
-          if(product.id === action.payload.id && product.quantity < 10){
+          if(product._id === action.payload._id && product.quantity < 10){
             product.quantity += 1;
           }
           return product;
@@ -28,7 +28,7 @@ const cartSlice = createSlice({
     // action payload will take the product object to remove the product from the state.
     removeProductFromCart: (state, action) => {
       const newState = state.value.filter((product) =>
-        product.id === action.payload.productId ? false : true
+        product._id === action.payload.productId ? false : true
       );
       state.value = newState;
     },
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
     // action will take productId and quantity in the form of object.
     updateQuantityOfProductInCart: (state, action) => {
       const newState = state.value.map((product) => {
-        if (product.id === action.payload.productId) {
+        if (product._id === action.payload.productId) {
           product.quantity = action.payload.quantity;
         }
         return product;

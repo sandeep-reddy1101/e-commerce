@@ -4,7 +4,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import Header from "./components/header/Header";
@@ -25,15 +25,18 @@ const queryClient = new QueryClient();
 
 function App() {
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.value);
 
   // Hard coding the userId value
   // In future write the logic to get the userId based on logged in user.
-  const userId = 2;
+  const userId = userData.login ? userData.data._id : null;
 
   // When component is rendered it will call a function which will fetch the user cart from API
   useEffect(() => {
-    fetchUserCartAndDispatchItToStore(userId, dispatch);
-  }, [dispatch]);
+    if(userId) {
+      fetchUserCartAndDispatchItToStore(userId, dispatch);
+    }
+  }, [dispatch, userId]);
 
   return (
     <QueryClientProvider client={queryClient}>

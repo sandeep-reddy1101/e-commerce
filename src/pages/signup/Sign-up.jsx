@@ -41,6 +41,8 @@ const SignUp = () => {
   const formSubmit = (data) => {
     insertUser(data)
       .then((userCreatedResponse) => {
+        // Here userCreatedResponse object contain inserted key 
+        // If inserted is true then user account is created successfully
         if(userCreatedResponse.inserted){
           openSnackBar("success", userCreatedResponse.message, dispatch);
           navigateToLogin();
