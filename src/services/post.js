@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const backendAPI = process.env.REACT_APP_USER_API_URL;
-const websiteURL = process.env.REACT_APP_WEBSITE_URL;
+const backendAPI = process.env.REACT_APP_USER_API_URL | process.env.REACT_APP_LOCAL_API_URL;
+const websiteURL = process.env.REACT_APP_WEBSITE_URL | process.env.REACT_APP_WEBSITE_LOCAL_URL;
 
 // Funtion to insert the user into the data base.
 export const insertUser = (userObj) => {

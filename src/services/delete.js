@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendAPI = process.env.REACT_APP_USER_API_URL;
+const backendAPI = process.env.REACT_APP_USER_API_URL | process.env.REACT_APP_LOCAL_API_URL;
 
 export const deleteProductFromUserCart = (userId, productId) => {
   const body = {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendAPI = process.env.REACT_APP_USER_API_URL;
+const backendAPI = process.env.REACT_APP_USER_API_URL | process.env.REACT_APP_LOCAL_API_URL;
 
 //function for fetching the data from the fake store api to get allproducts.
 export const getAllProducts = () => {
