@@ -4,7 +4,6 @@ const backendAPI = process.env.REACT_APP_USER_API_URL || process.env.REACT_APP_L
 
 //function for fetching the data from the fake store api to get allproducts.
 export const getAllProducts = () => {
-  console.log("get >>> ", backendAPI)
   return axios
     .get(`${backendAPI}/products/get-all`)
     .then((res) => res.data)

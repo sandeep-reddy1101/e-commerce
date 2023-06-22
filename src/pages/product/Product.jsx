@@ -90,7 +90,7 @@ const Product = () => {
                           >
                             Add to Cart
                           </button> */}
-                          <AddToCartButton addToCartButton={addToCartButtonClick} />
+                          <div><AddToCartButton addToCartButton={addToCartButtonClick} /></div>
                         </div>
                       </div>
                     </div>

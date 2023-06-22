@@ -13,6 +13,9 @@
     padding: 48px 24px;
     color: #3c4043;
     text-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .product-title {
@@ -34,6 +37,7 @@
 @media (max-width: 991px) {
     .product-details {
         text-align: center;
+        align-items: center;
     }
   }
 
