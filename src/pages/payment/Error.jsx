@@ -6,7 +6,7 @@ const Error = () => {
           <div className="col-12">
             <div className="p-5 text-center">
               <h3 className="text-danger">Your payment is failed</h3>
-              <Link to={'/'}><p>Go to Home page</p></Link>
+              <Link to={'/'}><p className="btn">Go to Home page</p></Link>
             </div>
           </div>
         </div>

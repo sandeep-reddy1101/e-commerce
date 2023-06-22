@@ -9,6 +9,7 @@ import Loading from "../../components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart } from "../../services/post";
 import { openSnackBar } from "../../services/service";
+import AddToCartButton from "../../components/add-to-cart-button/AddToCartButton";
 
 const Product = () => {
   // For getting the id (product ID) from the url param
@@ -83,12 +84,13 @@ const Product = () => {
                           </p>
                           <p className="product-price">${data.price}</p>
                           <p className="product-category">{data.category}</p>
-                          <button
+                          {/* <button
                             className="product-button btn btn-outline-secondary"
                             onClick={addToCartButtonClick}
                           >
                             Add to Cart
-                          </button>
+                          </button> */}
+                          <AddToCartButton addToCartButton={addToCartButtonClick} />
                         </div>
                       </div>
                     </div>

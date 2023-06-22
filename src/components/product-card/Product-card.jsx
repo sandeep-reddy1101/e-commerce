@@ -70,7 +70,7 @@ const ProductCard = (_props) => {
         <p className="card__descr">${product.price}</p>
         <div className="card__links">
           <button
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary learn-more-button"
             onClick={navigateToProductDetails}
           >
             Learn More

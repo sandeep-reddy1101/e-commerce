@@ -1,6 +1,10 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { getUserLoginInfoFromSession } from "./services/sessions";
 
+// In cart store data in stored as product objects in array
+// Ex: [{}, {}, {}]
+// Else []
+
 const initialUserCartValue = { value: [] };
 const cartSlice = createSlice({
   name: "cart",
@@ -62,6 +66,10 @@ export const {
 } = cartSlice.actions;
 
 
+// In user store user information is stored as object
+// Ex: {login : true, data : {}} Here in data user information is present
+// Else {login : false}
+
 // It will call a function to check whether the user login information is present in session storage.
 // If present it will get the information and store it.
 const getUserFromSession = getUserLoginInfoFromSession();
@@ -91,6 +99,9 @@ const userSlice = createSlice({
 
 export const { login, logout } = userSlice.actions;
 
+// In snackbar store data is stored as object
+// Ex: { open : true, message : "message displayed in snackbar", type: "success/error/info/warning"}
+// else { open : false }
 
 const snackBarSlice = createSlice({
   name : 'snackbar',

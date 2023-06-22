@@ -42,7 +42,7 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-md-0">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 className="nav-link active"
                 aria-current="page"
@@ -50,7 +50,7 @@ const Header = () => {
               >
                 Contact us
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               {userData.login ? (
                 <button
