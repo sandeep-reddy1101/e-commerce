@@ -18,8 +18,6 @@ const SearchProducts = () => {
     refetch()
   }, [refetch, productName])
 
-  console.log(productName, data)
-
   return (
     <>
       {isLoading ? (

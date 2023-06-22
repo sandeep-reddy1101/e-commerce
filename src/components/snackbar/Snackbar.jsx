@@ -14,11 +14,12 @@ const SnackBar = () => {
   const dispatch = useDispatch();
   const vertical = "top";
   const horizontal = "center";
+  const displayTime = 3000;
 
   if (snackbarObj.open === true) {
     setTimeout(() => {
       handleClose();
-    }, 5000);
+    }, displayTime);
   }
 
   const handleClose = () => {

@@ -25,27 +25,34 @@ const Product = () => {
 
   // This function is called when add to cart button is clicked.
   // It will add quantity key to data object which contains product information.
-  // Then it will dispatch the data object to store for adding product to cart.
+  // If the user is logged in then it will update the cart in the backend and store
   const addToCartButtonClick = () => {
     if(userData.login){
       const actionPayload = {...data, quantity: 1}
-      try {
-        updateCart(userData.data._id, actionPayload._id, actionPayload.quantity).then((response) => {
-          if(response.cartUpdated){
-            dispatch(addProductToCart(actionPayload));
-          }else {
-            throw Error("Some error occured in the backend API")
-          }
-        }).catch(err=>{
-          console.log(err.message)
-        })
-      }catch (err) {
-        console.log(err.message)
-      }
+      updateBackendCartAndCartStore(actionPayload)
     }else{
       openSnackBar("info", "User login required", dispatch)
     }
   };
+
+  // It will call updateCart function in service to update the cart in the backend
+  // If cart is updated successfully in the backend then it will update the store using dispatch
+  // Else it will throw error
+  const updateBackendCartAndCartStore = (actionPayload) => {
+    try {
+      updateCart(userData.data._id, actionPayload._id, actionPayload.quantity).then((response) => {
+        if(response.cartUpdated){
+          dispatch(addProductToCart(actionPayload));
+        }else {
+          throw Error("Some error occured in the backend API")
+        }
+      }).catch(err=>{
+        console.log(err.message)
+      })
+    }catch (err) {
+      console.log(err.message)
+    }
+  }
 
   // If loading is true it will display Loading component else the product details.
   // If there is product details in data vairable then it will display product details

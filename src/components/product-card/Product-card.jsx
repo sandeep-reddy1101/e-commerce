@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../../store";
 import { updateCart } from "../../services/post";
 import { openSnackBar } from "../../services/service";
+import AddToCartButton from "../add-to-cart-button/AddToCartButton";
 
 const ProductCard = (_props) => {
   const { product } = _props;
@@ -19,29 +20,39 @@ const ProductCard = (_props) => {
 
   // This function is called when add to cart button is clicked.
   // First we are adding quantity key to product object.
-  // It will dispatch the addProductToCart resolver in store to add the product to cart store.
+  // If only the user is logged in then it will update the cart
   const addToCartButtonClick = () => {
-    if(userData.login){
+    if (userData.login) {
       const actionPayload = {
         ...product,
         quantity: 1,
       };
-      try {
-        // dispatch(addProductToCart(actionPayload));
-        updateCart(userData.data._id, actionPayload._id, actionPayload.quantity).then((response)=>{
-          if(response.cartUpdated){
+      updateBackendCartAndCartStore(actionPayload);
+    } else {
+      openSnackBar("info", "User login required", dispatch);
+    }
+  };
+
+  // Calling updateCart service funtion to update the user cart in the backend
+  // If the user cart updated successfully then it will dispatch action payload to cart store
+  // If there is any error from backend it will throw error
+  const updateBackendCartAndCartStore = (actionPayload) => {
+    try {
+      updateCart(userData.data._id, actionPayload._id, actionPayload.quantity)
+        .then((response) => {
+          if (response.cartUpdated) {
             dispatch(addProductToCart(actionPayload));
-          }else{
+            openSnackBar("success", "Product added to cart", dispatch);
+          } else {
+            openSnackBar("error", "Some error occured", dispatch);
             throw Error("Some error occured in the backend API");
           }
-        }).catch((err) => {
-          console.log(err.message)
         })
-      } catch (err) {
-        console.log(err.message);
-      }
-    }else{
-      openSnackBar("info", "User login required", dispatch)
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } catch (err) {
+      console.log(err.message);
     }
   };
 
@@ -64,9 +75,10 @@ const ProductCard = (_props) => {
           >
             Learn More
           </button>
-          <button className="btn btn-success" onClick={addToCartButtonClick}>
+          {/* <button className="btn btn-success" onClick={addToCartButtonClick}>
             Add to Cart
-          </button>
+          </button> */}
+          <AddToCartButton addToCartButton={addToCartButtonClick} />
         </div>
       </div>
     </div>
