@@ -85,7 +85,7 @@ const CartProduct = (_props) => {
                       <option value={item} key={key + 1}>
                         {item}
                       </option>
-                    );
+                    )
                   })}
                 </select>
               </div>

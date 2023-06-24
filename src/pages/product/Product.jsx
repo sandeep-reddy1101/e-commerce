@@ -44,7 +44,9 @@ const Product = () => {
       updateCart(userData.data._id, actionPayload._id, actionPayload.quantity).then((response) => {
         if(response.cartUpdated){
           dispatch(addProductToCart(actionPayload));
+          openSnackBar("success", "Product added to cart", dispatch)
         }else {
+          openSnackBar("error", "Some error occured", dispatch)
           throw Error("Some error occured in the backend API")
         }
       }).catch(err=>{
